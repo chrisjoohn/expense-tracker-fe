@@ -1,5 +1,7 @@
+import { useRef } from "react";
 import styled from "styled-components";
 import { useLocation, useHistory } from "react-router-dom";
+import useOutsideClick from "../../utils/detectOutsideClickUtil";
 
 const SidebarWrapper = styled.div`
   position: absolute;
@@ -37,6 +39,7 @@ const SIDEBAR_ITEMS = [
 const Sidebar = (props) => {
   const { pathname } = useLocation();
   const history = useHistory();
+  const ref = useRef();
 
   const { hidden, hideSidebar } = props;
 
@@ -53,8 +56,10 @@ const Sidebar = (props) => {
     hideSidebar();
   };
 
+  useOutsideClick(ref, hideSidebar);
+
   return (
-    <SidebarWrapper isOpen={hidden} onClick={hideSidebar}>
+    <SidebarWrapper isOpen={hidden} onClick={hideSidebar} ref={ref}>
       <div />
       <SidebarItemsContainer>
         {SIDEBAR_ITEMS.map((sidebarItem) => (
