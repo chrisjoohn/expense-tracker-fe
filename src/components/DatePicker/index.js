@@ -2,6 +2,7 @@ import { DateRangePicker } from "react-date-range";
 import { useState, useEffect, createRef } from "react";
 import moment from "moment";
 import styled from "styled-components";
+import useOutsideClickDetector from "utils/detectOutsideClickUtil";
 
 import { ChevronUp, Chevrondown } from "icons";
 
@@ -35,6 +36,8 @@ const DatePicker = (props) => {
   const [dateText, setDateText] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
 
+  useOutsideClickDetector(containerRef, () => setShowDatePicker(false));
+
   useEffect(() => {
     const { startDate, endDate } = dateRange[0];
     const startDateText = moment(startDate).format("MM/D/YYYY");
@@ -42,19 +45,6 @@ const DatePicker = (props) => {
 
     setDateText(startDateText + " - " + endDateText);
   }, [dateRange]);
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (containerRef.current && !containerRef.current.contains(e.target)) {
-        setShowDatePicker(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [containerRef]);
 
   return (
     <Wrapper ref={containerRef}>
