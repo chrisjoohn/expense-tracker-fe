@@ -1,10 +1,7 @@
 import { DateRangePicker } from "react-date-range";
 import { useState, useEffect, createRef } from "react";
 import moment from "moment";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-
-import { SetDatePickerRange } from "store/actionCreators/common";
 
 import { ChevronUp, Chevrondown } from "icons";
 
@@ -32,10 +29,9 @@ const CalendarWrapper = styled.div``;
 const chevronStyles = { height: "15px", marginTop: "5px", marginLeft: "10px" };
 
 const DatePicker = (props) => {
-  const dispatch = useDispatch();
-  const containerRef = createRef(null);
-  const { datePicker: dateRange } = useSelector((state) => state.common);
+  const { changeHandler, dateRange } = props;
 
+  const containerRef = createRef(null);
   const [dateText, setDateText] = useState("");
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -59,10 +55,6 @@ const DatePicker = (props) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [containerRef]);
-
-  const changeHandler = (item) => {
-    dispatch(SetDatePickerRange([item.range1]));
-  };
 
   return (
     <Wrapper ref={containerRef}>
