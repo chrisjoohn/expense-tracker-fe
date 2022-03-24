@@ -63,7 +63,7 @@ const BarChart = (props) => {
         <XAxis dataKey="name" />
         <Bar dataKey="uv">
           {data.map((d, i) => (
-            <Cell fill={colors[i % 20]} />
+            <Cell fill={colors[i % 20]} key={i} />
           ))}
         </Bar>
       </Barchart>

@@ -81,9 +81,9 @@ const Select = (props) => {
       </StyledSelect>
       <OptionList isOpen={isListOpen}>
         {options &&
-          options.map((item) => {
+          options.map((item, i) => {
             return (
-              <Option onClick={() => changeHandler(item)}>
+              <Option onClick={() => changeHandler(item)} key={i}>
                 {item.placeholder}
               </Option>
             );
