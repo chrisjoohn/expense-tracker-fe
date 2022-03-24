@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createRef } from "react";
 import styled from "styled-components";
 import { ChevronUp, Chevrondown } from "icons";
+import useOutsideClick from "utils/detectOutsideClickUtil";
 
 const Wrapper = styled.div`
   height: 40px;
@@ -44,11 +45,18 @@ const iconStyles = {
 const Select = (props) => {
   const [isListOpen, setIsListOpen] = useState(false);
   const [inputPlaceholder, setInputPlaceHolder] = useState("");
+  const ref = createRef();
 
   const { options, onChange, placeholder, defaultVal } = props;
 
+  useOutsideClick(ref, () => {
+    setIsListOpen(false);
+  });
+
   useEffect(() => {
-    setInputPlaceHolder(defaultVal.placeholder);
+    if (defaultVal?.placeholder) {
+      setInputPlaceHolder(defaultVal.placeholder);
+    }
   }, []);
 
   const changeHandler = (item) => {
@@ -62,7 +70,7 @@ const Select = (props) => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper ref={ref}>
       <StyledSelect onClick={containerClickHandler}>
         {placeholder + inputPlaceholder}{" "}
         {isListOpen ? (
