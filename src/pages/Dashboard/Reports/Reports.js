@@ -59,7 +59,7 @@ const Reports = (props) => {
   const currentMonth = moment().format("MMM");
   // TODO: Set initial values of year -> current year
   const [filter, setFilter] = useState({
-    main: { value: "month", placeholder: "Month" },
+    main: { value: "monthFilter", placeholder: "Month" },
     monthFilter: { year: { value: currentYear, placeholder: currentYear } },
     quarterFilter: { year: { value: currentYear, placeholder: currentYear } },
     weekFilter: {
@@ -113,7 +113,7 @@ const Reports = (props) => {
               defaultVal={main}
             />
             {/* QUARTER FILTER */}
-            {main.value === "quarter" && (
+            {main.value === "quarterFilter" && (
               <Select
                 placeholder="Year: "
                 options={yearOptions}
@@ -123,7 +123,7 @@ const Reports = (props) => {
             )}
 
             {/* MONTH FILTER */}
-            {main.value === "month" && (
+            {main.value === "monthFilter" && (
               <Select
                 placeholder="Year: "
                 options={yearOptions}
@@ -133,7 +133,7 @@ const Reports = (props) => {
             )}
 
             {/* WEEK FILTER */}
-            {main.value === "week" && (
+            {main.value === "weekFilter" && (
               <>
                 <Select
                   placeholder="Year: "
