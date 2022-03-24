@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { ChevronUp, Chevrondown } from "icons";
 
@@ -44,11 +44,17 @@ const iconStyles = {
 const Select = (props) => {
   const [isListOpen, setIsListOpen] = useState(false);
   const [inputPlaceholder, setInputPlaceHolder] = useState("");
-  const { options, onChange, placeholder } = props;
+
+  const { options, onChange, placeholder, defaultVal } = props;
+
+  useEffect(() => {
+    setInputPlaceHolder(defaultVal.placeholder);
+  }, []);
 
   const changeHandler = (item) => {
     setIsListOpen(false);
     setInputPlaceHolder(item.placeholder);
+    onChange(item);
   };
 
   const containerClickHandler = () => {
