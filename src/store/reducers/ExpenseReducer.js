@@ -25,7 +25,7 @@ export default (state = initialState, action) => {
         list: [
           ...state.list.map((item) => {
             if (item._id === action.payload.id) {
-              return { ...item, isPaid: true };
+              return { ...item, ...action.payload.data };
             }
             return item;
           }),
